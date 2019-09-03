@@ -238,3 +238,8 @@ setDT(conf_matrix_west_florida)[, client_name := "west_florida"]
 
 df <- rbind(conf_matrix_all_six, conf_matrix_alma, conf_matrix_central_flaco, conf_matrix_netrina, conf_matrix_rural_health, conf_matrix_space_coast, conf_matrix_west_florida)
 write.csv(df, "conf_matrix_unplanned_xgboost.csv", row.names = F)
+
+  
+  importance_matrix <- xgb.importance(feature_names = colnames(data), model = bst)
+(df <- xgb.ggplot.importance(importance_matrix, measure = "Frequency", rel_to_first = TRUE))
+df + ggplot2::ylab("Frequency")
